@@ -15,67 +15,16 @@
       <RowDefinition Height="81*"/>
       <RowDefinition Height="338*"/>
     </Grid.RowDefinitions>
-    <WrapPanel HorizontalAlignment="Left" Height="28" Margin="10,10,0,0" VerticalAlignment="Top" Width="183" Grid.ColumnSpan="2">
-      <TextBlock TextWrapping="Wrap">
-        <Run Text="Name："/>
-        <InlineUIContainer>
-          <TextBox Name="txtName" Height="23" TextWrapping="Wrap" Text="" Width="120" TextChanged="txtName_TextChanged"/>
-        </InlineUIContainer>
-      </TextBlock>
-    </WrapPanel>
-    
-    
+
+    <TextBox x:Name="NameTextBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="205" Height="26" TextChanged="NameTextBox_TextChanged"/>
+
     <ComboBox x:Name="EmploymentLevelComboBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="205" RenderTransformOrigin="0.5,0.5" Height="26" SelectionChanged="EmploymentLevelComboBox_SelectionChanged">
       <ComboBoxItem>Staff</ComboBoxItem>
       <ComboBoxItem>Student</ComboBoxItem>
       <ComboBoxItem>All</ComboBoxItem>
     </ComboBox>
-    
-    <!--<ListView x:Name="ResearcherListView" ItemsSource="{Binding Researchers}"  HorizontalAlignment="Left" Height="251" Margin="10,39,0,-2" Grid.Row="1" VerticalAlignment="Top" Width="205" SelectionChanged="ResearcherListView_SelectionChanged">
-      <ListView.View>
-        <GridView>
-          <GridViewColumn DisplayMemberBinding="{Binding Path=GivenName}"/>
-        </GridView>
-      </ListView.View>
-    </ListView>
-    -->
-    
-    
-    
-    <ListView x:Name="PublicationsListView" ItemsSource="{Binding Publications}"  Grid.Column="1" HorizontalAlignment="Left" Height="251" Margin="38,39,100,-2" Grid.Row="1" VerticalAlignment="Top" Width="202" SelectionChanged="PublicationsListView_SelectionChanged">
-      <ListView.View>
-        <GridView>
-          <GridViewColumn DisplayMemberBinding="{Binding Path=Title}"/>
-        </GridView>
-      </ListView.View>
-    </ListView>
 
-
-
-
-  
-    
-    
-    
-    
-    <Image Name="ResearcherPhoto" Width="100" Height="100" Grid.Column="1" Margin="0,0,70,0"/>
-    <StackPanel x:Name="PublicationDetailsStackPanel" Grid.Column="2" HorizontalAlignment="Left" Height="251" Margin="38,39,0,-2" Grid.Row="1" VerticalAlignment="Bottom" Width="189">
-      <Label x:Name="PublicationTitleLabel" Height="50" Margin="0,0,0.333,0">
-        <Label.Content>
-          <AccessText TextWrapping="WrapWithOverflow" Text="{Binding Path=Title}"/>
-        </Label.Content>
-      </Label>
-      <Label x:Name="YearLabel" Content="{Binding Path=YearOfPublication}"/>
-      <ListView x:Name="ListOfAuthorsListView" ItemsSource="{Binding AuthorNames}"/>
-      
-      
-    </StackPanel>
-
-    
-    
-    
-
-    <ListView x:Name="ResearcherListView" ItemsSource="{Binding Researchers}"  HorizontalAlignment="Left" Height="251" Margin="10,39,0,-2" Grid.Row="1" VerticalAlignment="Top" Width="445" SelectionChanged="ResearcherListView_SelectionChanged">
+    <ListView x:Name="ResearcherListView" ItemsSource="{Binding Researchers}" HorizontalAlignment="Left" Height="251" Margin="10,39,0,-2" Grid.Row="1" VerticalAlignment="Top" Width="445" SelectionChanged="ResearcherListView_SelectionChanged">
       <ListView.View>
         <GridView>
           <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Path=Id}"/>
@@ -92,12 +41,46 @@
       </ListView.View>
     </ListView>
 
+    <ListView x:Name="PublicationsListView" ItemsSource="{Binding Publications.Title}" Grid.Column="2" HorizontalAlignment="Left" Height="251" Margin="38,39,0,-2" Grid.Row="1" VerticalAlignment="Bottom" Width="189" SelectionChanged="PublicationsListView_SelectionChanged">
+      <ListView.View>
+        <GridView>
+          <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}"/>
+          <GridViewColumn Header="Year" DisplayMemberBinding="{Binding YearOfPublication}"/>
+          <GridViewColumn Header="Available From" DisplayMemberBinding="{Binding AvailableFrom}"/>
+          <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}"/>
+          <GridViewColumn Header="Ranking" DisplayMemberBinding="{Binding Ranking}"/>
+          <GridViewColumn Header="Authors">
+            <GridViewColumn.CellTemplate>
+              <DataTemplate>
+                <ItemsControl ItemsSource="{Binding Authors}">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{Binding}"/>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </DataTemplate>
+            </GridViewColumn.CellTemplate>
+          </GridViewColumn>
+        </GridView>
+      </ListView.View>
+    </ListView>
 
-
-
-
-
-
-
+    <Image Name="ResearcherPhoto" Width="100" Height="100" Grid.Column="1" Margin="0,0,70,0"/>
+    <StackPanel x:Name="PublicationDetailsStackPanel" Grid.Column="2" HorizontalAlignment="Left" Height="251" Margin="38,39,0,-2" Grid.Row="1" VerticalAlignment="Bottom" Width="189">
+      <Label x:Name="PublicationTitleLabel" Height="50" Margin="0,0,0.333,0">
+        <Label.Content>
+          <AccessText TextWrapping="WrapWithOverflow" Text="{Binding Path=Title}" />
+        </Label.Content>
+      </Label>
+      <Label x:Name="YearLabel" Content="{Binding Path=YearOfPublication}" />
+      <ListView x:Name="ListOfAuthorsListView" ItemsSource="{Binding Authors}" />
+      <Label x:Name="PublisherLabel" Content="{Binding Path=Publisher}" />
+    </StackPanel>
   </Grid>
 </Window>
