@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entity
 {
@@ -12,7 +9,6 @@ namespace Entity
         public string FamilyName { get; set; }
         public string GivenName { get; set; }
         public string Title { get; set; }
- 
         public string Campus { get; set; }
         public string Email { get; set; }
         public string Photo { get; set; }
@@ -22,11 +18,16 @@ namespace Entity
         public Employment_level LEVEL;
         public List<Publication> Publications { get; set; }
 
-
         public override string ToString()
         {
             return Id + ' ' + GivenName + ' ' + FamilyName + ' ' + Title + ' ' + Campus + ' ' + Email + ' ' + Photo + ' ' + Level + ' ' + Utas_start + ' ' + Current_start;
+        }
 
+        public enum Position
+        {
+            Student,
+            Staff,
+            Associate
         }
 
         public enum Employment_level
@@ -39,6 +40,5 @@ namespace Entity
             D,
             E
         }
-
     }
 }
