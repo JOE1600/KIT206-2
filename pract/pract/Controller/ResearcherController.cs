@@ -45,23 +45,24 @@ namespace Controller
         }
 
         public static List<Researcher> FilterByType(bool isStudent, List<Researcher> researchers)
-        {
-            if (isStudent)
-            {
-                var filtered = from Researcher researcher in researchers
-                               where researcher.LEVEL == Employment_level.student
-                               select researcher;
-                tempResearcherList = new List<Researcher>(filtered);
-            }
-            else
-            {
-                var filtered = from Researcher researcher in researchers
-                               where researcher.LEVEL != Employment_level.student
-                               select researcher;
-                tempResearcherList = new List<Researcher>(filtered);
-            }
-            return tempResearcherList;
-        }
+{
+    if (isStudent)
+    {
+        var filtered = from Researcher researcher in researchers
+                       where researcher.LEVEL == Employment_level.Student
+                       select researcher;
+        tempResearcherList = new List<Researcher>(filtered);
+    }
+    else
+    {
+        var filtered = from Researcher researcher in researchers
+                       where researcher.LEVEL != Employment_level.Student
+                       select researcher;
+        tempResearcherList = new List<Researcher>(filtered);
+    }
+    return tempResearcherList;
+}
+
 
         public List<Researcher> FilterByLevel(Researcher.Employment_level level)
         {

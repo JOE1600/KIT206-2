@@ -54,15 +54,17 @@ namespace pract
 
         private void EmploymentLevelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
+
             if (e.AddedItems[0] != null)
             {
-                if (e.AddedItems[0].ToString().EndsWith("Student"))
+                if (e.AddedItems[0].ToString()== "Student")
                 {
                     ResearcherListView.ItemsSource = ResearcherController.FilterByType(true, Researchers);
                 }
-                else if (e.AddedItems[0].ToString().EndsWith("Staff"))
+                else if (e.AddedItems[0].ToString() == "Staff")
                 {
-                    ResearcherListView.ItemsSource = ResearcherController.FilterByType(false, Researchers);
+                   ResearcherListView.ItemsSource = ResearcherController.FilterByType(false, Researchers);
                 }
                 else
                 {
@@ -71,14 +73,14 @@ namespace pract
             }
         }
 
-        private void PublicationsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+      private void PublicationsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (PublicationsListView.SelectedItem != null)
             {
                 PublicationDetailsStackPanel.DataContext = PublicationsListView.SelectedItem as Publication;
             }
         }
-
+        
         private void ResearcherListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
@@ -99,5 +101,6 @@ namespace pract
                 }
             }
         }
+        
     }
 }

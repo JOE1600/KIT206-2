@@ -19,9 +19,9 @@ namespace Entity
         public List<Publication> Publications { get; set; }
 
         public override string ToString()
-        {
-            return Id + ' ' + GivenName + ' ' + FamilyName + ' ' + Title + ' ' + Campus + ' ' + Email + ' ' + Photo + ' ' + Level + ' ' + Utas_start + ' ' + Current_start;
-        }
+{
+    return $"{Id}, {GivenName}, {FamilyName}, {Title}, {Campus}, {Email}, {Photo}, {Level}, {Utas_start}, {Current_start}";
+}
 
         public enum Position
         {
@@ -33,7 +33,7 @@ namespace Entity
         public enum Employment_level
         {
             Unknown,
-            student,
+            Student,
             A,
             B,
             C,
