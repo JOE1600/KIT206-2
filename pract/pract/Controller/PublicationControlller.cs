@@ -1,72 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Entity;
 using System.Threading.Tasks;
 using DBTestOnAlacritas;
-
-
-
-
 
 namespace Controller
 {
     public class PublicationController
     {
-        public List<Publication> publication;
+        private List<Publication> publications;
 
-
-
-
-        DatabaseAdapter no = new DatabaseAdapter();
         public PublicationController()
         {
-
-            publication = no.LoadAll();
+            publications = LoadAll();
         }
-
 
         public List<Publication> LoadAll()
         {
-            return no.LoadAll();
+            return LoadAllPublications(); // Call the updated method instead of recursive call
         }
 
+        public static List<Publication> LoadAllPublications()
+        {
+            List<Publication> loadedPublications = DatabaseAdapter.LoadAll();
+            if (loadedPublications != null)
+            {
+                return loadedPublications;
+            }
+            return null;
+        }
 
+       public List<Publication> SearchByResearcher(Researcher researcher)
+{
+    if (researcher == null)
+    {
+        return publications;
+    }
+
+    if (publications == null)
+    {
+        publications = LoadAllPublications();
+    }
+
+    var pubsByAuthor = from pub in publications
+                       from author in pub.Authors
+                       where author.Equals(researcher.GivenName)
+                       select pub;
+
+    return pubsByAuthor.ToList();
+}
 
 
         public void Display()
         {
-            publication.ForEach(Console.WriteLine);
+            foreach (Publication publication in publications)
+            {
+                Console.WriteLine(publication);
+            }
         }
+
         public void LoadResearchers()
         {
-            publication.ForEach(Console.WriteLine);
-        }
-        public Publication FilterbyName(string naam)
-        {
-            foreach (Publication publication in publication)
-            {
-                if (publication.Authors.Contains(naam))
-                {
-                    return publication;
-                }
-            }
-            return null;
+            // Implementation to load researchers goes here
         }
 
-
-
-        public Publication FilterbyLevel(string laal)
+        public Publication FilterbyName(string name)
         {
-            foreach (Publication publication in publication)
-            {
-                if (publication.Type.Equals(laal))
-                {
-                    return publication;
-                }
-            }
-            return null;
+            return publications.FirstOrDefault(pub => pub.Authors.Contains(name));
+        }
+
+        public List<Publication> FilterbyLevel(string level)
+        {
+            return publications.Where(pub => pub.Type.Equals(level)).ToList();
         }
     }
 }

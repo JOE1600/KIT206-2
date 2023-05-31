@@ -39,15 +39,22 @@ namespace pract
 
 
 
-        public List<Publication> Publications
+       public List<Publication> Publications
+{
+    get
+    {
+        if (ResearcherListView.SelectedItem != null)
         {
-            get
-            {
-                PublicationController publicationController = new PublicationController();
-                return publicationController.LoadAll();
-            }
+            PublicationController publicationController = new PublicationController();
+            List<Publication> publications = publicationController.SearchByResearcher(ResearcherListView.SelectedItem as Researcher);
+            return publications;
         }
-
+        else
+        {
+            return null;
+        }
+    }
+}
 
 
 

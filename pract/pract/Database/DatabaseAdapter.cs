@@ -73,7 +73,7 @@ namespace DBTestOnAlacritas
 
 
 
-    public List<Publication> LoadAll()
+    public static List<Publication> LoadAll()
         {
             List<Publication> publications = new List<Publication>();
             string sql = "SELECT * FROM publication";
