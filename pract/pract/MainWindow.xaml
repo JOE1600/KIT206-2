@@ -15,7 +15,14 @@
       <RowDefinition Height="81*"/>
       <RowDefinition Height="338*"/>
     </Grid.RowDefinitions>
-    
+    <WrapPanel HorizontalAlignment="Left" Height="28" Margin="10,10,0,0" VerticalAlignment="Top" Width="183" Grid.ColumnSpan="2">
+      <TextBlock TextWrapping="Wrap">
+        <Run Text="Name："/>
+        <InlineUIContainer>
+          <TextBox Name="txtName" Height="23" TextWrapping="Wrap" Text="" Width="120" TextChanged="txtName_TextChanged"/>
+        </InlineUIContainer>
+      </TextBlock>
+    </WrapPanel>
     
     
     <ComboBox x:Name="EmploymentLevelComboBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="205" RenderTransformOrigin="0.5,0.5" Height="26" SelectionChanged="EmploymentLevelComboBox_SelectionChanged">
