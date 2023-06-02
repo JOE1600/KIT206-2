@@ -39,7 +39,9 @@ namespace DBTestOnAlacritas
                             Campus = dr["campus"].ToString(),
                             Email = dr["email"].ToString(),
                             Photo = dr["photo"].ToString(),
-                            Level = dr["level"].ToString(),
+                            Unit = dr["unit"].ToString(),
+                            Degree = dr["degree"].ToString(),
+                            Supervisor_id = dr["Supervisor_id"].ToString(),
                             Utas_start = dr["utas_start"].ToString(),
                             Current_start = dr["current_start"].ToString(),
                             Publications = new List<Publication>()
@@ -63,17 +65,11 @@ namespace DBTestOnAlacritas
             return researchers;
         
     }
+     
 
 
 
-// need to add visual
-
-
-
-
-
-
-    public static List<Publication> LoadAll()
+        public static List<Publication> LoadAll()
         {
             List<Publication> publications = new List<Publication>();
             string sql = "SELECT * FROM publication";
@@ -89,15 +85,17 @@ namespace DBTestOnAlacritas
                     {
                         while (reader.Read())
                         {
-                            if (currentPublication == null || currentPublication.Title != reader["title"].ToString())
+                            if (currentPublication == null || currentPublication.title != reader["title"].ToString())
                             {
                                 currentPublication = new Publication
                                 {
-                                    Title = reader["title"] == DBNull.Value ? null : reader["title"].ToString(),
+                                    title = reader["title"] == DBNull.Value ? null : reader["title"].ToString(),
                                     YearOfPublication = ParseInt(reader, "year"),
                                     AvailableFrom = Convert.ToDateTime(reader["available"]),
                                     Type = reader["type"] == DBNull.Value ? null : reader["type"].ToString(),
                                     Ranking = ParseInt(reader, "ranking"),
+                                    cite_as = reader["cite_as"] == DBNull.Value ? null : reader["cite_as"].ToString(),
+                                    doi = reader["doi"] == DBNull.Value ? null : reader["doi"].ToString(),
                                     Authors = new List<string>()
                                 };
                                 string authorsString = reader["authors"].ToString();
