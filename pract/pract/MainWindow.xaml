@@ -62,7 +62,7 @@
         </GridView>
       </ListView.View>
     </ListView>
-
+<!---->
     <Border BorderBrush="Black" BorderThickness="2" Grid.Column="1" Grid.Row="1" Margin="0,0,10,0">
       <Grid x:Name="Researcherdetail">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="382" Grid.Column="0">
