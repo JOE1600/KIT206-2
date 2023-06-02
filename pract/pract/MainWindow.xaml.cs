@@ -35,23 +35,14 @@ namespace pract
             }
         }
 
-       public List<Publication> Publications
-{
-    get
-    {
-        if (ResearcherListView.SelectedItem != null)
+        public List<Publication> Publications
         {
-            Researcher selectedResearcher = ResearcherListView.SelectedItem as Researcher;
-            PublicationController publicationController = new PublicationController();
-            List<Publication> publications = publicationController.SearchByResearcher(selectedResearcher);
-            return publications;
+            get
+            {
+                PublicationController publicationController = new PublicationController();
+                return publicationController.LoadAll();
+            }
         }
-        else
-        {
-            return null;
-        }
-    }
-}
 
 
         private void EmploymentLevelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -81,9 +72,7 @@ namespace pract
             // You can use LINQ or any other database access method to query the database
         }
 private void PublicationsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-{
-
-   //a
+{   
 }
 
 
@@ -96,12 +85,13 @@ private void ResearcherListView_SelectionChanged(object sender, SelectionChanged
         Researcher selectedResearcher = e.AddedItems[0] as Researcher;
 
         // Update the PublicationsListView with publications for the selected researcher
-        PublicationController publicationController = new PublicationController();
-        List<Publication> publications = publicationController.SearchByResearcher(selectedResearcher);
-        PublicationsListView.ItemsSource = publications;
 
         if (selectedResearcher != null)
         {
+           PublicationController publicationController = new PublicationController();
+           List<Publication> publications = selectedResearcher.Publications;
+           PublicationsListView.ItemsSource = Publications;
+
             BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.UriSource = new Uri(selectedResearcher.Photo);
@@ -110,6 +100,7 @@ private void ResearcherListView_SelectionChanged(object sender, SelectionChanged
 
             ResearcherPhoto.Source = imageSource;
         }
+        Researcherdetail.DataContext = e.AddedItems[0];
     }
 }
 
